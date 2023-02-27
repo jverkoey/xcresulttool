@@ -747,6 +747,9 @@ export class Formatter {
                   }
 
                   const testActivities = activities
+                    .filter(activity => {
+                      return activity.title == "Attached Recorded Snapshot"
+                    })
                     .map(activity => {
                       const attachments = activity.attachments
                         .filter(attachment => {
@@ -793,9 +796,6 @@ export class Formatter {
 
                       if (attachments.length) {
                         const testStatus = testResult.testStatus
-                        const open = testStatus.includes('Failure')
-                          ? 'open'
-                          : ''
                         const title = escapeHashSign(activity.title)
                         const message = `${indentation(
                           activity.indent
@@ -804,7 +804,7 @@ export class Formatter {
                           activity.indent + 1
                         )
                         const attachmentContent = attachments.join('')
-                        return `${message}\n${attachmentIndent}<details ${open}><summary>${attachmentIcon}</summary>${attachmentContent}</details>\n`
+                        return `${attachmentContent}\n`
                       } else {
                         const indent = indentation(activity.indent)
                         return `${indent}- ${escapeHashSign(activity.title)}`
