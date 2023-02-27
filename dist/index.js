@@ -721,6 +721,9 @@ class Formatter {
                         const anchorBack = `[${backIcon}](${anchorName})`;
                         testDetail.lines.push(`${anchorTag}<h5>${testName}&nbsp;${anchorBack}</h5>`);
                         const testsStatsLines = [];
+                        const runDestination = chapter.runDestination;
+                        testsStatsLines.push(`- **Device:** ${runDestination.targetDeviceRecord.modelName}, ${runDestination.targetDeviceRecord.operatingSystemVersionWithBuildNumber}`);
+                        testsStatsLines.push(`- **SDK:** ${runDestination.targetSDKRecord.name}, ${runDestination.targetSDKRecord.operatingSystemVersion}`);
                         testsStatsLines.push('<table>');
                         testsStatsLines.push('<tr>');
                         const header = [
@@ -921,7 +924,7 @@ class Formatter {
                                             }
                                         })
                                             .join('\n');
-                                        resultLines.push(`<br><b>Activities:</b>\n\n${testActivities}`);
+                                        resultLines.push(`<br>\n\n${testActivities}`);
                                     }
                                 }
                                 else {
@@ -1232,11 +1235,6 @@ function run() {
                     core.warning(`The 'title' will be truncated because the character limit (${charactersLimit}) exceeded.`);
                     title = title.substring(0, charactersLimit);
                 }
-                let reportSummary = report.reportSummary;
-                if (reportSummary.length > charactersLimit) {
-                    core.warning(`The 'summary' will be truncated because the character limit (${charactersLimit}) exceeded.`);
-                    reportSummary = reportSummary.substring(0, charactersLimit);
-                }
                 let reportDetail = report.reportDetail;
                 if (reportDetail.length > charactersLimit) {
                     core.warning(`The 'text' will be truncated because the character limit (${charactersLimit}) exceeded.`);
@@ -1246,22 +1244,11 @@ function run() {
                     core.warning('Annotations that exceed the limit (50) will be truncated.');
                 }
                 const annotations = report.annotations.slice(0, 50);
-                let output;
-                if (reportDetail.trim()) {
-                    output = {
-                        title: 'Screenshots',
-                        summary: reportDetail,
-                        text: "Hello world",
-                        annotations
-                    };
-                }
-                else {
-                    output = {
-                        title: 'Screenshots',
-                        summary: reportDetail,
-                        annotations
-                    };
-                }
+                let output = {
+                    title: 'Screenshots',
+                    summary: reportDetail,
+                    annotations
+                };
                 yield octokit.checks.create({
                     owner,
                     repo,

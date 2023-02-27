@@ -574,6 +574,14 @@ export class Formatter {
 
           const testsStatsLines: string[] = []
 
+          const runDestination = chapter.runDestination
+          testsStatsLines.push(
+            `- **Device:** ${runDestination.targetDeviceRecord.modelName}, ${runDestination.targetDeviceRecord.operatingSystemVersionWithBuildNumber}`
+          )
+          testsStatsLines.push(
+            `- **SDK:** ${runDestination.targetSDKRecord.name}, ${runDestination.targetSDKRecord.operatingSystemVersion}`
+          )
+  
           testsStatsLines.push('<table>')
           testsStatsLines.push('<tr>')
           const header = [
@@ -813,7 +821,7 @@ export class Formatter {
                     .join('\n')
 
                   resultLines.push(
-                    `<br><b>Activities:</b>\n\n${testActivities}`
+                    `<br>\n\n${testActivities}`
                   )
                 }
               } else {

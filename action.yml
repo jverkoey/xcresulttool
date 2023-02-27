@@ -10,7 +10,7 @@ inputs:
     default: ${{ github.token }}
   title:
     description: 'Title for the check results'
-    default: 'Xcode test results'
+    default: 'Screenshots'
   show-passed-tests:
     description: 'Show passed tests'
     default: true
