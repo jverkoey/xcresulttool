@@ -82,6 +82,7 @@ async function run(): Promise<void> {
       let output = {
         title: 'Screenshots',
         summary: reportDetail,
+        text: ".",
         annotations
       }
       await octokit.checks.create({

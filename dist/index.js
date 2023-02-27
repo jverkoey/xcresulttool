@@ -1247,6 +1247,7 @@ function run() {
                 let output = {
                     title: 'Screenshots',
                     summary: reportDetail,
+                    text: ".",
                     annotations
                 };
                 yield octokit.checks.create({
