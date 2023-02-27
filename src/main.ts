@@ -47,7 +47,7 @@ async function run(): Promise<void> {
     })
 
     if (core.getInput('token')) {
-      await core.summary.addRaw(report.reportSummary).write()
+      await core.summary.addRaw(report.reportDetail).write()
 
       const octokit = new Octokit()
 
@@ -90,8 +90,8 @@ async function run(): Promise<void> {
       if (reportDetail.trim()) {
         output = {
           title: 'Xcode test results',
-          summary: reportSummary,
-          text: reportDetail,
+          summary: reportDetail,
+          text: "Hello world",
           annotations
         }
       } else {
